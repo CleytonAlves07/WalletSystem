@@ -1,1 +1,6 @@
-// Coloque aqui suas actions
+const infoLogin = (user) => ({
+  type: 'SET_LOGIN',
+  user,
+});
+
+export default infoLogin;
