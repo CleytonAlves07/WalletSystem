@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import infoLogin from '../actions/index';
+import { infoLogin } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -14,10 +14,21 @@ class Login extends React.Component {
     };
   }
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
+  handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value }, () => this.checkValidations());
   };
+
+  // Validação com Regex que cobre mais casos
+  // checkInputs = () => {
+  //   const six = 6;
+  //   const { senha, email } = this.state;
+  //   const result = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+  //   return result.test(email) && senha.length >= six
+  //     ? this.setState({ isLoading: false })
+  //     : this.setState({ isLoading: true });
+  // }
+
+  // Validação com includes que cobre poucos casos;
 
   checkValidations = () => {
     const six = 6;
