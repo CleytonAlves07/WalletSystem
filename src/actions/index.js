@@ -1,6 +1,11 @@
 // export const RECEIVE_WALLET = 'RECEIVE_WALLET';
 
-export const receiveExpenses = (payload) => ({
+export const infoForm = (payload, receiveAPI) => ({
+  type: 'INFO_FORM',
+  payload: { ...payload, exchangeRates: { ...receiveAPI } },
+});
+
+export const receiveCoins = (payload) => ({
   type: 'RECEIVE_WALLET',
   payload,
 });
@@ -10,9 +15,15 @@ export const infoLogin = (user) => ({
   user,
 });
 
-export const fetchExpenses = () => async (dispatch) => {
+export const fetchCoins = () => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
   const payload = await response.json();
   const total = Object.keys(payload).filter((element) => element !== 'USDT');
-  return dispatch(receiveExpenses(total));
+  return dispatch(receiveCoins(total));
+};
+
+export const fetchExpenses = (payload) => async (dispatch) => {
+  const response = await fetch('https://economia.awesomeapi.com.br/json/all');
+  const receiveAPI = await response.json();
+  return dispatch(infoForm(payload, receiveAPI));
 };

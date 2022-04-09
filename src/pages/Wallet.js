@@ -1,27 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { fetchExpenses } from '../actions';
+import { fetchCoins } from '../actions';
 import Header from './Header';
 
 class Wallet extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      expenses: [0],
-      currencies: ['BRL'],
-    };
-  }
-
   componentDidMount() {
     const { setFetch } = this.props;
     setFetch();
   }
 
   render() {
-    const { expenses, currencies } = this.state;
-    const { user } = this.props;
+    const { user, total } = this.props;
     return (
       <div>
         <h1>TrybeWallet</h1>
@@ -30,14 +20,10 @@ class Wallet extends React.Component {
         </h2>
         <Header />
         <h4 data-testid="header-currency-field">
-          Câmbio:
-          {' '}
-          {currencies}
+          BRL
         </h4>
         <h3 data-testid="total-field">
-          Despesa Total:
-          {' '}
-          {expenses}
+          {total.toFixed(2)}
         </h3>
       </div>
     );
@@ -49,10 +35,11 @@ const mapStateToProps = (state) => ({
   data: state.data,
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
+  total: state.wallet.total,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setFetch: () => dispatch(fetchExpenses()),
+  setFetch: () => dispatch(fetchCoins()),
 });
 
 Wallet.propTypes = {
