@@ -98,7 +98,7 @@ class Header extends React.Component {
             onChange={ this.handleChange }
             data-testid="tag-input"
           >
-            <option value="Alimentação" selected>Alimentação</option>
+            <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
             <option value="Trabalho">Trabalho</option>
             <option value="Transporte">Transporte</option>
