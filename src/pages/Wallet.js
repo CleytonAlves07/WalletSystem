@@ -23,7 +23,7 @@ class Wallet extends React.Component {
           BRL
         </h4>
         <h3 data-testid="total-field">
-          {total.toFixed(2)}
+          {total === undefined ? 0 : total.toFixed(2)}
         </h3>
       </div>
     );
