@@ -39,7 +39,6 @@ class Wallet extends React.Component {
               <th>Moeda</th>
               <th>Câmbio utilizado</th>
               <th>Valor convertido</th>
-              <th>Teste</th>
               <th>Moeda de conversão</th>
               <th>Editar/Excluir</th>
             </tr>
@@ -47,18 +46,21 @@ class Wallet extends React.Component {
           {expenses.map((e) => (
             <tbody key={ Math.random() * mil }>
               <tr>
-                <td name="Descrição">{e.description}</td>
-                <td name="Tag">{e.tag}</td>
-                <td name="Método de pagamento">{e.method}</td>
-                <td name="Valor">{parseFloat(e.value).toFixed(2)}</td>
-                <td name="Moeda">{e.currency}</td>
-                <td name="Câmbio utilizado">{e.exchangeRates[e.currency].name}</td>
-                <td name="Valor convertido">
-                  {parseFloat(Number(e.exchangeRates[e.currency].ask) * Number(e.value)).toFixed(2)}
+                <td>{e.description}</td>
+                <td>{e.tag}</td>
+                <td>{e.method}</td>
+                <td>{parseFloat(e.value).toFixed(2)}</td>
+                <td>{e.exchangeRates[e.currency].name}</td>
+                <td>
+                  {parseFloat(parseFloat(Number(e
+                    .exchangeRates[e.currency].ask))).toFixed(2)}
                 </td>
-                <td>{parseFloat(Number(e.exchangeRates[e.currency].ask))}</td>
-                <td name="Moeda de conversão">Real</td>
-                <td name="Editar/Excluir">
+                <td>
+                  {parseFloat(Number(e.exchangeRates[e.currency].ask)
+                    * Number(e.value)).toFixed(2)}
+                </td>
+                <td>Real</td>
+                <td>
                   {btnEditar}
                   {btnExcluir}
                 </td>
