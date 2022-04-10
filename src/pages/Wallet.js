@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { fetchCoins } from '../actions';
 import Header from './Header';
+import './Wallet.css';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -11,7 +12,10 @@ class Wallet extends React.Component {
   }
 
   render() {
-    const { user, total } = this.props;
+    const { user, total, expenses } = this.props;
+    const mil = 1000;
+    const btnExcluir = <button type="button" data-testid="delete-btn">Excluir</button>;
+    const btnEditar = <button type="button" data-testid="edit-btn">Editar</button>;
     return (
       <div>
         <h1>TrybeWallet</h1>
@@ -25,6 +29,42 @@ class Wallet extends React.Component {
         <h3 data-testid="total-field">
           {total === undefined ? 0 : total.toFixed(2)}
         </h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Teste</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
+            </tr>
+          </thead>
+          {expenses.map((e) => (
+            <tbody key={ Math.random() * mil }>
+              <tr>
+                <td name="Descrição">{e.description}</td>
+                <td name="Tag">{e.tag}</td>
+                <td name="Método de pagamento">{e.method}</td>
+                <td name="Valor">{parseFloat(e.value).toFixed(2)}</td>
+                <td name="Moeda">{e.currency}</td>
+                <td name="Câmbio utilizado">{e.exchangeRates[e.currency].name}</td>
+                <td name="Valor convertido">
+                  {parseFloat(Number(e.exchangeRates[e.currency].ask) * Number(e.value)).toFixed(2)}
+                </td>
+                <td>{parseFloat(Number(e.exchangeRates[e.currency].ask))}</td>
+                <td name="Moeda de conversão">Real</td>
+                <td name="Editar/Excluir">
+                  {btnEditar}
+                  {btnExcluir}
+                </td>
+              </tr>
+            </tbody>))}
+        </table>
       </div>
     );
   }

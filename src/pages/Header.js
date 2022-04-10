@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchExpenses } from '../actions';
 
+const alimentacao = 'Alimentação';
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +12,7 @@ class Header extends React.Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: alimentacao,
     };
   }
 
@@ -23,7 +24,7 @@ class Header extends React.Component {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: '',
+      tag: alimentacao,
     });
   };
 

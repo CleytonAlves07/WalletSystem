@@ -15,6 +15,15 @@ export const infoLogin = (user) => ({
   user,
 });
 
+export const sumValues = (array) => {
+  if (array.length === 0) return 0;
+  return array.reduce((acc, cur) => {
+    const { value, currency, exchangeRates } = cur;
+    acc += Number(value) * Number(exchangeRates[currency].ask);
+    return acc;
+  }, 0);
+};
+
 export const fetchCoins = () => async (dispatch) => {
   const response = await fetch('https://economia.awesomeapi.com.br/json/all');
   const payload = await response.json();
