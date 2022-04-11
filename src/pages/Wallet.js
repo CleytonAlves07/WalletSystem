@@ -1,21 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import { fetchCoins } from '../actions';
+import { fetchCoins, actionUpdate, calculateValues } from '../actions';
 import Header from './Header';
 import './Wallet.css';
 
 class Wallet extends React.Component {
   componentDidMount() {
-    const { setFetch } = this.props;
+    const { setFetch, calculateInitialExpense } = this.props;
     setFetch();
+    calculateInitialExpense();
+  }
+
+  btnDelete = ({ target: { id } }) => {
+    const { setUpdate, expenses, currencies } = this.props;
+    setUpdate(expenses, currencies, id);
   }
 
   render() {
     const { user, total, expenses } = this.props;
     const mil = 1000;
-    const btnExcluir = <button type="button" data-testid="delete-btn">Excluir</button>;
-    const btnEditar = <button type="button" data-testid="edit-btn">Editar</button>;
     return (
       <div>
         <h1>TrybeWallet</h1>
@@ -61,8 +65,22 @@ class Wallet extends React.Component {
                 </td>
                 <td>Real</td>
                 <td>
-                  {btnEditar}
-                  {btnExcluir}
+                  <button
+                    type="button"
+                    data-testid="edit-btn"
+                  >
+                    Editar
+
+                  </button>
+
+                  <button
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ this.btnDelete }
+                    id={ e.id }
+                  >
+                    Excluir
+                  </button>
                 </td>
               </tr>
             </tbody>))}
@@ -82,6 +100,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setFetch: () => dispatch(fetchCoins()),
+  setUpdate:
+    (payload, currenciesPayload, id) => dispatch(
+      actionUpdate(payload, currenciesPayload, id),
+    ),
+  calculateInitialExpense: () => dispatch(calculateValues()),
 });
 
 Wallet.propTypes = {

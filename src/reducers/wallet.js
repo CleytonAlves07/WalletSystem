@@ -7,6 +7,11 @@ const INICIAL_STATE = {
   total: 0,
 };
 
+function filterExpenses(arrayOfExpenses, id) {
+  const expensesFilter = arrayOfExpenses.filter((e) => Number(e.id) !== Number(id));
+  return expensesFilter;
+}
+
 function wallet(state = INICIAL_STATE, action) {
   switch (action.type) {
   case 'RECEIVE_WALLET':
@@ -19,6 +24,18 @@ function wallet(state = INICIAL_STATE, action) {
       ...state,
       expenses: [...state.expenses, action.payload],
       total: sumValues([...state.expenses, action.payload]),
+    };
+  case 'UPDATE_EXPENSES':
+    return {
+      ...state,
+      expenses: filterExpenses([...action.payload], action.id),
+      currencies: [...action.currenciesPayload],
+      total: sumValues(filterExpenses([...action.payload], action.id)),
+    };
+  case 'CALCULATE_VALUES':
+    return {
+      ...state,
+      total: sumValues([...state.expenses]),
     };
   default:
     return state;

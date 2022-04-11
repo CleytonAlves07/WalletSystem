@@ -1,8 +1,13 @@
-// export const RECEIVE_WALLET = 'RECEIVE_WALLET';
+export const actionUpdate = (payload, currenciesPayload, id) => ({
+  type: 'UPDATE_EXPENSES',
+  payload,
+  currenciesPayload,
+  id,
+});
 
-export const infoForm = (payload, receiveAPI) => ({
+export const infoForm = (payload, exchangeRates) => ({
   type: 'INFO_FORM',
-  payload: { ...payload, exchangeRates: { ...receiveAPI } },
+  payload: { ...payload, exchangeRates },
 });
 
 export const receiveCoins = (payload) => ({
@@ -13,6 +18,10 @@ export const receiveCoins = (payload) => ({
 export const infoLogin = (user) => ({
   type: 'SET_LOGIN',
   user,
+});
+
+export const calculateValues = () => ({
+  type: 'CALCULATE_VALUES',
 });
 
 export const sumValues = (array) => {
